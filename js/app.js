@@ -5,15 +5,17 @@ var gElBall2 = document.querySelector('.ball2')
 var gElBody = document.querySelector('body')
 var gElUndo = document.querySelector('.btn-undo')
 var gElRedo = document.querySelector('.btn-redo')
+var gElCounter = document.querySelector('.moves-counter')
 
 var gBallSize = 100
 var gBall2Size = 100
+var moveCounter = 0
 
 var gInterval
 var gTimeout
 
 var gGameStates = []
-var redoGameStates = []
+var gRedoGameStates = []
 
 saveState()
 
@@ -35,12 +37,16 @@ function saveState() {
     }
     state.backgroundColor = (gElBody.style.backgroundColor || '#252525')
     gGameStates.push(state)
-    if (gGameStates.length > 1) gElUndo.disabled = false
+    if (gGameStates.length > 1) {
+        gElUndo.disabled = false
+        moveCounter++
+        gElCounter.innerHTML = moveCounter
+    }
 }
 
 function onUndo() {
     if (gGameStates.length < 2) return
-    redoGameStates.push(gGameStates.pop())
+    gRedoGameStates.push(gGameStates.pop())
 
     if (gGameStates.length < 2) gElUndo.disabled = true
 
@@ -63,8 +69,8 @@ function onUndo() {
 }
 
 function onRedo() {
-    if (!redoGameStates.length) return
-    var latestState = redoGameStates[redoGameStates.length - 1]
+    if (!gRedoGameStates.length) return
+    var latestState = gRedoGameStates[gRedoGameStates.length - 1]
 
     gBallSize = latestState.ball1.size
     gElBall1.style.width = latestState.ball1.width
@@ -79,9 +85,9 @@ function onRedo() {
     gElBall2.innerHTML = latestState.ball2.text
 
     gElBody.style.backgroundColor = latestState.backgroundColor
-    gGameStates.push(redoGameStates.pop())
+    gGameStates.push(gRedoGameStates.pop())
     gElUndo.disabled = false
-    if (redoGameStates.length < 1) gElRedo.disabled = true
+    if (gRedoGameStates.length < 1) gElRedo.disabled = true
 }
 
 function onBallClick(elBall, maxDiameter) {
@@ -160,7 +166,14 @@ function onBall6Click() {
 
     gElBody.style.backgroundColor = '#252525'
 
+    moveCounter = 0
+    gElCounter.innerHTML = moveCounter
+    gElRedo.disabled = true
+    gElUndo.disabled = true
+
     gGameStates = []
+    gRedoGameStates = []
+    saveState()
 }
 
 function onBall6hover() {
