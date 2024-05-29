@@ -3,8 +3,8 @@
 var gElBall1 = document.querySelector('.ball1')
 var gElBall2 = document.querySelector('.ball2')
 var gElBody = document.querySelector('body')
-var gUndo = document.querySelector('.btn-undo')
-var gRedo = document.querySelector('.btn-redo')
+var gElUndo = document.querySelector('.btn-undo')
+var gElRedo = document.querySelector('.btn-redo')
 
 var gBallSize = 100
 var gBall2Size = 100
@@ -35,11 +35,14 @@ function saveState() {
     }
     state.backgroundColor = (gElBody.style.backgroundColor || '#252525')
     gGameStates.push(state)
+    if (gGameStates.length > 1) gElUndo.disabled = false
 }
 
 function onUndo() {
     if (gGameStates.length < 2) return
     redoGameStates.push(gGameStates.pop())
+
+    if (gGameStates.length < 2) gElUndo.disabled = true
 
     var latestState = gGameStates[gGameStates.length - 1]
 
@@ -56,12 +59,11 @@ function onUndo() {
     gElBall2.innerHTML = latestState.ball2.text
 
     gElBody.style.backgroundColor = latestState.backgroundColor
+    gElRedo.disabled = false
 }
 
 function onRedo() {
-    // console.log('redoGameStates:', redoGameStates);
     if (!redoGameStates.length) return
-
     var latestState = redoGameStates[redoGameStates.length - 1]
 
     gBallSize = latestState.ball1.size
@@ -78,6 +80,8 @@ function onRedo() {
 
     gElBody.style.backgroundColor = latestState.backgroundColor
     gGameStates.push(redoGameStates.pop())
+    gElUndo.disabled = false
+    if (redoGameStates.length < 1) gElRedo.disabled = true
 }
 
 function onBallClick(elBall, maxDiameter) {
