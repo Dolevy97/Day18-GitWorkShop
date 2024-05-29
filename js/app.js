@@ -3,6 +3,8 @@
 var gElBall1 = document.querySelector('.ball1')
 var gElBall2 = document.querySelector('.ball2')
 var gElBody = document.querySelector('body')
+var gUndo = document.querySelector('.btn-undo')
+var gRedo = document.querySelector('.btn-redo')
 
 var gBallSize = 100
 var gBall2Size = 100
@@ -78,25 +80,6 @@ function onRedo() {
     gGameStates.push(redoGameStates.pop())
 }
 
-
-function resetGame() {
-    gBallSize = 100
-    gElBall1.style.width = 100 + 'px'
-    gElBall1.style.height = 100 + 'px'
-    gElBall1.style.backgroundColor = 'skyblue'
-    gElBall1.innerHTML = gBallSize
-
-    gBall2Size = 100
-    gElBall2.style.width = 100 + 'px'
-    gElBall2.style.height = 100 + 'px'
-    gElBall2.style.backgroundColor = 'cadetblue'
-    gElBall2.innerHTML = gBall2Size
-
-    gElBody.style.backgroundColor = '#252525'
-
-    gGameStates = []
-}
-
 function onBallClick(elBall, maxDiameter) {
     if (gBallSize >= maxDiameter) gBallSize = 100
     gBallSize += getRandomInt(20, 61)
@@ -159,7 +142,21 @@ function onBall5Click() {
 }
 
 function onBall6Click() {
-    resetGame()
+    gBallSize = 100
+    gElBall1.style.width = 100 + 'px'
+    gElBall1.style.height = 100 + 'px'
+    gElBall1.style.backgroundColor = 'skyblue'
+    gElBall1.innerHTML = gBallSize
+
+    gBall2Size = 100
+    gElBall2.style.width = 100 + 'px'
+    gElBall2.style.height = 100 + 'px'
+    gElBall2.style.backgroundColor = 'cadetblue'
+    gElBall2.innerHTML = gBall2Size
+
+    gElBody.style.backgroundColor = '#252525'
+
+    gGameStates = []
 }
 
 function onBall6hover() {
