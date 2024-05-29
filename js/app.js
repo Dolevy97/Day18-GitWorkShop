@@ -10,6 +10,75 @@ var gBall2Size = 100
 var gInterval
 var gTimeout
 
+var gGameStates = []
+var redoGameStates = []
+
+saveState()
+
+function saveState() {
+    var state = {}
+    state.ball1 = {
+        size: gBallSize,
+        width: (gElBall1.style.width || gBallSize + 'px'),
+        height: (gElBall1.style.height || gBallSize + 'px'),
+        color: (gElBall1.style.backgroundColor || 'skyblue'),
+        text: gElBall1.innerHTML
+    }
+    state.ball2 = {
+        size: gBall2Size,
+        width: (gElBall2.style.width || gBall2Size + 'px'),
+        height: (gElBall2.style.height || gBall2Size + 'px'),
+        color: (gElBall2.style.backgroundColor || 'cadetblue'),
+        text: gElBall2.innerHTML
+    }
+    state.backgroundColor = (gElBody.style.backgroundColor || '#252525')
+    gGameStates.push(state)
+}
+
+function onUndo() {
+    if (gGameStates.length < 2) return
+    redoGameStates.push(gGameStates.pop())
+
+    var latestState = gGameStates[gGameStates.length - 1]
+
+    gBallSize = latestState.ball1.size
+    gElBall1.style.width = latestState.ball1.width
+    gElBall1.style.height = latestState.ball1.height
+    gElBall1.style.backgroundColor = latestState.ball1.color
+    gElBall1.innerHTML = latestState.ball1.text
+
+    gBall2Size = latestState.ball2.size
+    gElBall2.style.width = latestState.ball2.width
+    gElBall2.style.height = latestState.ball2.height
+    gElBall2.style.backgroundColor = latestState.ball2.color
+    gElBall2.innerHTML = latestState.ball2.text
+
+    gElBody.style.backgroundColor = latestState.backgroundColor
+}
+
+function onRedo() {
+    // console.log('redoGameStates:', redoGameStates);
+    if (!redoGameStates.length) return
+
+    var latestState = redoGameStates[redoGameStates.length - 1]
+
+    gBallSize = latestState.ball1.size
+    gElBall1.style.width = latestState.ball1.width
+    gElBall1.style.height = latestState.ball1.height
+    gElBall1.style.backgroundColor = latestState.ball1.color
+    gElBall1.innerHTML = latestState.ball1.text
+
+    gBall2Size = latestState.ball2.size
+    gElBall2.style.width = latestState.ball2.width
+    gElBall2.style.height = latestState.ball2.height
+    gElBall2.style.backgroundColor = latestState.ball2.color
+    gElBall2.innerHTML = latestState.ball2.text
+
+    gElBody.style.backgroundColor = latestState.backgroundColor
+    gGameStates.push(redoGameStates.pop())
+}
+
+
 function resetGame() {
     gBallSize = 100
     gElBall1.style.width = 100 + 'px'
@@ -24,6 +93,8 @@ function resetGame() {
     gElBall2.innerHTML = gBall2Size
 
     gElBody.style.backgroundColor = '#252525'
+
+    gGameStates = []
 }
 
 function onBallClick(elBall, maxDiameter) {
@@ -33,6 +104,7 @@ function onBallClick(elBall, maxDiameter) {
     elBall.style.height = gBallSize + 'px'
     elBall.innerHTML = gBallSize
     elBall.style.backgroundColor = getRandomColor()
+    saveState()
 }
 
 function onBall2Click(elBall, maxDiameter) {
@@ -42,6 +114,7 @@ function onBall2Click(elBall, maxDiameter) {
     elBall.style.height = gBall2Size + 'px'
     elBall.innerHTML = gBall2Size
     elBall.style.backgroundColor = getRandomColor()
+    saveState()
 }
 
 function onBall3Click() {
@@ -62,6 +135,7 @@ function onBall3Click() {
     gElBall2.style.height = tempSize + 'px'
     gElBall2.innerHTML = tempSize
     gElBall2.style.backgroundColor = tempColor
+    saveState()
 }
 
 function onBall4Click() {
@@ -76,10 +150,12 @@ function onBall4Click() {
     gElBall2.style.width = gBall2Size + 'px'
     gElBall2.style.height = gBall2Size + 'px'
     gElBall2.innerHTML = gBall2Size
+    saveState()
 }
 
 function onBall5Click() {
     gElBody.style.backgroundColor = getRandomColor()
+    saveState()
 }
 
 function onBall6Click() {
