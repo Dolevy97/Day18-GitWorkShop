@@ -2,7 +2,7 @@
 var ball1Size = 100
 
 function onBallClick(elBall) {
-    ball1Size = ball1Size + getRandomInt(20,61)
+    ball1Size = ball1Size + getRandomInt(20, 61)
     elBall.style.width = ball1Size + 'px'
     elBall.style.height = ball1Size + 'px'
     elBall.innerHTML = ball1Size

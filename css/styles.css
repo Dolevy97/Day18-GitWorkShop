@@ -13,10 +13,19 @@ body {
     height: 100px;
     border-radius: 50%;
 
-    background-color: skyblue;
     margin: auto;
-    font-size:22px;
-    font-weight: bold;
 
     transition: width 1s, height 1s;
+
+    font-size: 22px;
+    font-weight: bold;
+
+}
+
+.ball1 {
+    background-color: skyblue;
+}
+
+.ball2 {
+    background-color: cadetblue;
 }
