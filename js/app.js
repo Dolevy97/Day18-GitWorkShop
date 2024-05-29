@@ -1,4 +1,9 @@
 'use strict'
+
+var gElBall1 = document.querySelector('.ball1')
+var gElBall2 = document.querySelector('.ball2')
+
+
 var gBallSize = 100
 var gBall2Size = 100
 
@@ -25,24 +30,35 @@ function onBall2Click(elBall, maxDiameter) {
 
 
 function onBall3Click() {
-    var elBall1 = document.querySelector('.ball1')
-    var elBall2 = document.querySelector('.ball2')
-
-    var ball1BackgroundColor = (elBall1.style.backgroundColor || 'skyblue')
-    var ball2BackgroundColor = (elBall2.style.backgroundColor || 'cadetblue')
+    var ball1BackgroundColor = (gElBall1.style.backgroundColor || 'skyblue')
+    var ball2BackgroundColor = (gElBall2.style.backgroundColor || 'cadetblue')
 
     var tempSize = gBallSize
     var tempColor = ball1BackgroundColor
 
     gBallSize = gBall2Size
-    elBall1.style.width = gBall2Size + 'px'
-    elBall1.style.height = gBall2Size + 'px'
-    elBall1.innerHTML = gBall2Size
-    elBall1.style.backgroundColor = ball2BackgroundColor
+    gElBall1.style.width = gBall2Size + 'px'
+    gElBall1.style.height = gBall2Size + 'px'
+    gElBall1.innerHTML = gBall2Size
+    gElBall1.style.backgroundColor = ball2BackgroundColor
 
     gBall2Size = tempSize
-    elBall2.style.width = tempSize + 'px'
-    elBall2.style.height = tempSize + 'px'
-    elBall2.innerHTML = tempSize
-    elBall2.style.backgroundColor = tempColor
+    gElBall2.style.width = tempSize + 'px'
+    gElBall2.style.height = tempSize + 'px'
+    gElBall2.innerHTML = tempSize
+    gElBall2.style.backgroundColor = tempColor
+}
+
+function onBall4Click() {
+    gBallSize -= getRandomInt(20, 60)
+    if (gBallSize < 100) gBallSize = 100
+    gElBall1.style.width = gBallSize + 'px'
+    gElBall1.style.height = gBallSize + 'px'
+    gElBall1.innerHTML = gBallSize
+
+    gBall2Size -= getRandomInt(20, 60)
+    if (gBall2Size < 100) gBall2Size = 100
+    gElBall2.style.width = gBall2Size + 'px'
+    gElBall2.style.height = gBall2Size + 'px'
+    gElBall2.innerHTML = gBall2Size
 }
