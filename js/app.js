@@ -7,6 +7,9 @@ var gElBody = document.querySelector('body')
 var gBallSize = 100
 var gBall2Size = 100
 
+var gInterval
+var gTimeout
+
 function resetGame() {
     gBallSize = 100
     gElBall1.style.width = 100 + 'px'
@@ -81,4 +84,26 @@ function onBall5Click() {
 
 function onBall6Click() {
     resetGame()
+}
+
+function onBall6hover() {
+    gTimeout = setTimeout(() => {
+        var cycle = 0
+        gInterval = setInterval(() => {
+            if (cycle === 10) {
+                clearInterval(gInterval)
+                return
+            }
+            onBallClick(gElBall1, 350)
+            onBall2Click(gElBall2, 400)
+            onBall3Click()
+            onBall4Click()
+            cycle++
+        }, 2000)
+    }, 2000)
+}
+
+function onBall6Leave() {
+    clearTimeout(gTimeout)
+    clearInterval(gInterval)
 }

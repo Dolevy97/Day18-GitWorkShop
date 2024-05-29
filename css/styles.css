@@ -2,13 +2,13 @@ body {
     background-color: #252525;
     color: #FEF5EA;
     font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
 }
 
 .ball {
     display: flex;
     justify-content: center;
     align-items: center;
-
     width: 100px;
     height: 100px;
     border-radius: 50%;
@@ -45,5 +45,5 @@ body {
 }
 
 .ball6 {
-    background-color:lightgreen;
+    background-color: lightgreen;
 }
