@@ -6,11 +6,15 @@ var gElBody = document.querySelector('body')
 var gElUndo = document.querySelector('.btn-undo')
 var gElRedo = document.querySelector('.btn-redo')
 var gElCounter = document.querySelector('.moves-counter')
+var gElMins = document.querySelector(`.mins`)
+var gElSecs = document.querySelector(`.secs`)
 
 var gBallSize = 100
 var gBall2Size = 100
 var moveCounter = 0
+var gTotalSeconds = 0
 
+var gTimerInterval
 var gInterval
 var gTimeout
 
@@ -41,6 +45,7 @@ function saveState() {
         gElUndo.disabled = false
         moveCounter++
         gElCounter.innerHTML = moveCounter
+        if (!gTimerInterval) gTimerInterval = setInterval(setTime, 1000)
     }
 }
 
@@ -151,7 +156,7 @@ function onBall5Click() {
     saveState()
 }
 
-function onBall6Click() {
+function resetState() {
     gBallSize = 100
     gElBall1.style.width = 100 + 'px'
     gElBall1.style.height = 100 + 'px'
@@ -165,14 +170,23 @@ function onBall6Click() {
     gElBall2.innerHTML = gBall2Size
 
     gElBody.style.backgroundColor = '#252525'
+}
 
+function onBall6Click() {
+    resetState()
+    
     moveCounter = 0
     gElCounter.innerHTML = moveCounter
     gElRedo.disabled = true
     gElUndo.disabled = true
+    gElMins.innerHTML = '00'
+    gElSecs.innerHTML = '00'
+    gTotalSeconds = 0
 
     gGameStates = []
     gRedoGameStates = []
+    clearInterval(gTimerInterval)
+    gTimerInterval = undefined
     saveState()
 }
 

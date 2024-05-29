@@ -13,3 +13,15 @@ function getRandomColor() {
     }
     return color;
 }
+
+function setTime() {
+    ++gTotalSeconds
+    gElSecs.innerHTML = pad(gTotalSeconds % 60)
+    gElMins.innerHTML = pad(parseInt(gTotalSeconds / 60))
+}
+
+function pad(val) {
+    var str = val + ''
+    if (str.length < 2) return "0" + str
+    else return str
+}
