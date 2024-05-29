@@ -4,3 +4,13 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+.ball {
+    width:100px;
+    height:100px;
+    border-radius: 50%;
+    background-color: skyblue;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    margin:auto;
+}
